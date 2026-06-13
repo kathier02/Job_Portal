@@ -1,0 +1,231 @@
+:root {
+  --primary: #e8c08e;
+  --secondary: #bf917d;
+  --accent: #4ea58e;
+  --dark: #1f1f1f;
+  --darker: #311c18;
+  --light: #ffffff;
+  --gray: #7a7a7a;
+  --page-bg: palegoldenrod;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*background: var(--page-bg);*/
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  background: var(--page-bg);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  padding: 40px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.login-box,
+.signup-box {
+  animation: fade 0.4s ease;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.top {
+  display: flex;
+  background: white;
+  padding: 6px;
+  border-radius: 15px;
+  margin-bottom: 35px;
+  gap: 6px;
+}
+
+.switch-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  color: var(--dark);
+}
+
+.switch-btn.active,
+.switch-btn:hover {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+}
+
+h2 {
+  text-align: center;
+  color: #1b1b1b;
+  margin-bottom: 25px;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  border-radius: 15px;
+  background: white;
+  font-size: 15px;
+  outline: none;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+
+form button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 15px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 5px;
+}
+
+.signup-box {
+  display: none;
+}
+
+.employer-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.employer-link a {
+  text-decoration: none;
+  color: #1b1b1b;
+  font-weight: 600;
+}
+
+/* =========================
+   MOBILE FIX - NO TOP/BOTTOM GAP
+   ========================= */
+
+@media (max-width: 768px) {
+  body {
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 15px;
+    border-radius: 5px;
+    background: white;
+  }
+
+  .container {
+           width: 100%;
+        max-width: 100%;
+        min-height: 100vh;
+        min-height: 71dvh;
+        margin: 0;
+        padding: 24px 16px 20px;
+        border-radius: 10px;
+        border: none;
+        box-shadow: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+  }
+
+  .top {
+    margin-bottom: 24px;
+  }
+
+  .switch-btn {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  input {
+    font-size: 15px;
+    padding: 14px 16px;
+  }
+
+  form button {
+    font-size: 16px;
+    padding: 14px;
+  }
+
+  .employer-link {
+    font-size: 16px;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 14px 16px;
+  }
+
+
+  .switch-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  input {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+
+  form button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .employer-link {
+    font-size: 14px;
+  }
+}

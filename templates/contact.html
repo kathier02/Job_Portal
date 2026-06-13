@@ -1,0 +1,24 @@
+{% extends 'dummy.html' %}
+{% load static %}
+{% block title %}
+Contact
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/style7.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+{% endblock %}
+{% block content %}
+<section class="cont">
+
+<h1>Connect With Us</h1>
+<p>We're here to help. Reach out to us via email, phone, or our social channels.</p>
+<div class="icons">
+    <i class="bi bi-linkedin"></i>
+    <i class="bi bi-instagram"></i>
+    <i class="bi bi-envelope"></i>
+    <i class="bi bi-telephone"></i>
+</div>
+<p>E-mail:<a>careers.at.hirehub@gmail.com</a></p>
+<p>Mobile:<a>9486689577</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,238 @@
+.hero{
+    background: #174859;
+    min-height:650px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 8%;
+    overflow:hidden;
+    position:relative;
+}
+
+
+
+.hero-content{
+    width:50%;
+    color:#fff;
+    z-index:2;
+}
+
+.tagline{
+    display:block;
+    font-size:14px;
+    letter-spacing:4px;
+    font-weight:600;
+    margin-bottom:25px;
+    text-transform:uppercase;
+}
+
+.hero-content h1{
+    font-size:72px;
+    font-weight:300;
+    line-height:1.05;
+    margin-bottom:30px;
+}
+
+.hero-content h1 span{
+    font-style:italic;
+}
+
+.hero-content h4{
+    font-weight: bolder;
+}
+
+.hero-content p{
+    font-size:24px;
+    line-height:1.5;
+    max-width:550px;
+    margin-bottom:40px;
+}
+.hero-content a{
+    color: white;
+    text-decoration-line: none;
+    padding: 10px 30px;
+    border-radius: 3px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+.btn{
+    display:inline-block;
+    background:#d89b4d;
+    color:#111;
+    text-decoration:none;
+    padding:16px 34px;
+    border-radius:12px;
+    font-size:20px;
+    font-weight:500;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#c98a37;
+    transform:translateY(-2px);
+}
+
+.hero-image{
+    width:50%;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    z-index:2;
+}
+
+.hero-image img{
+    width:100%;
+    max-width:650px;
+    object-fit:contain;
+}
+
+.hiring-process{
+    padding:100px 8%;
+    background:#f5f5f5;
+    text-align:center;
+}
+
+.hiring-process h2{
+    font-size:58px;
+    font-weight:300;
+    color:#333;
+    margin-bottom:25px;
+}
+
+.line{
+    width:180px;
+    height:3px;
+    background:#7aa0ff;
+    margin:0 auto 80px;
+    border-radius:10px;
+}
+
+.process-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:50px;
+}
+
+.process-card{
+    text-align:left;
+}
+
+.process-card h3{
+    font-size:23px;
+    color:#222;
+    font-weight:500;
+    margin-bottom:25px;
+}
+
+.process-card p{
+    font-size:18px;
+    line-height:1.7;
+    color:#555;
+}
+
+
+/* =========================
+   HERO MOBILE RESPONSIVE
+   ========================= */
+
+@media (max-width: 992px) {
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    padding: 60px 6%;
+    min-height: auto;
+  }
+
+  .hero-content {
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 52px;
+  }
+
+  .hero-content p {
+    font-size: 20px;
+    margin: 0 auto 30px;
+  }
+
+  .hero-image {
+    width: 100%;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .hero-image img {
+    max-width: 450px;
+  }
+
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .hero-content h1 {
+    font-size: 38px;
+    line-height: 1.1;
+  }
+
+  .hero-content p {
+    font-size: 18px;
+  }
+
+  .btn {
+    font-size: 18px;
+    padding: 14px 26px;
+  }
+
+  .hero-image img {
+    max-width: 320px;
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .hiring-process h2 {
+    font-size: 30px;
+  }
+
+  .process-card h3 {
+    font-size: 22px;
+  }
+
+  .process-card p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .hero-content h1 {
+    font-size: 30px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .hero-image img {
+    max-width: 260px;
+  }
+
+  .tagline {
+    font-size: 12px;
+  }
+}

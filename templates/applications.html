@@ -1,0 +1,45 @@
+
+{% extends 'dummy2.html' %}
+{% load static %}
+{% block title %}
+Applications
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/applications.css' %}">
+{% endblock %}
+{% block content %}
+<div class="application-container">
+<!--<h2>Applications</h2>-->
+
+<table>
+    <tr>
+        <th>Candidate</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Job</th>
+        <th>Company</th>
+        <th>Resume</th>
+        <th>Applied On</th>
+    </tr>
+
+    {% for app in applications %}
+    <tr>
+        <td>{{ app.name }}</td>
+        <td>{{ app.email }}</td>
+        <td>{{ app.phone }}</td>
+        <td>{{ app.job.job_title }}</td>
+        <td>{{ app.job.company.company_name }}</td>
+
+        <td>
+            <a href="{{ app.resume.url }}" target="_blank">
+                View Resume
+            </a>
+        </td>
+
+        <td>{{ app.applied_at }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+</div>
+{% endblock %}

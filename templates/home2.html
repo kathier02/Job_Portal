@@ -1,0 +1,76 @@
+{% extends 'dummy2.html' %}
+{% load static %}
+{% block title %}
+Home
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/home2.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+
+    <div class="hero-content">
+        <h4>HIRE HUB FOR EMPLOYERS</h4>
+
+        <h1>
+            Let's hire your <br>
+            next great <br>
+            candidate. <span>Fast.</span>
+        </h1>
+
+        <p>
+            No matter the skills, experience or qualifications
+            you're looking for, you'll find the right people here.
+        </p>
+
+        <a href="{% url 'add_job' %}">Post a Job</a>
+    </div>
+
+    <div class="hero-image">
+        <img src="{% static 'images/hero.png' %}" alt="Recruiter">
+    </div>
+
+</section>
+
+<section class="hiring-process">
+
+    <h2>Manage your hiring from start to finish</h2>
+    <div class="line"></div>
+
+    <div class="process-grid">
+
+        <div class="process-card">
+            <h3>Post a Job</h3>
+            <p>
+                Get started by creating a job posting and reaching thousands of candidates.
+            </p>
+        </div>
+
+        <div class="process-card">
+            <h3>Find Quality Applicants</h3>
+            <p>
+                Use screening tools and filters to identify the most suitable candidates.
+            </p>
+        </div>
+
+        <div class="process-card">
+            <h3>Make Connections</h3>
+            <p>
+                Chat, schedule interviews and communicate directly with applicants.
+            </p>
+        </div>
+
+        <div class="process-card">
+            <h3>Hire Confidently</h3>
+            <p>
+                Access hiring resources and make informed recruitment decisions.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}

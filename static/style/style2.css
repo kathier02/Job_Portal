@@ -1,0 +1,128 @@
+.cont h1{
+    font-size: 80px;
+    text-align: center;
+    margin: 50px 50px 0 50px;
+    font-weight: bolder;
+    background-clip: text;
+}
+.cont p{
+    font-size: 23px;
+    color: grey;
+    text-align: center;
+    width: 900px;
+    margin: 30px auto;
+    font-weight: bold;
+}
+h1 span{
+    background: linear-gradient(135deg, #b3b9c8,blueviolet,skyblue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.about-section{
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    padding: 60px;
+    background: #eef2f7;
+}
+
+.about-left h2{
+    font-size: 50px;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.about-left p{
+    font-size: 20px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.about-right{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;
+}
+
+.feature-card{
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 40px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.feature-card:hover{
+    transform: translateY(-5px);
+}
+
+.icon{
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+
+.blue{
+    background: #dbeafe;
+    color: #0284c7;
+}
+
+.yellow{
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.green{
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.purple{
+    background: #f3e8ff;
+    color: #9333ea;
+}
+
+.feature-card h3{
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.feature-card p{
+    color: #555;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .cont h1{
+        font-size: 35px;
+        margin: 30px 15px 0;
+    }
+    .cont p{
+        width: fit-content;
+        font-size: 20px;
+    }
+    .about-section{
+        display: block;
+    }
+    .about-right{
+        display: block;
+    }
+    .about-section{
+        padding: 10px;
+        gap: 10px;
+    }
+    .about-left h2{
+        font-size: 35px;
+    }
+    .about-left p{
+        font-size: 18px;
+    }
+}

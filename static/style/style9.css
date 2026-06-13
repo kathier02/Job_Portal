@@ -1,0 +1,214 @@
+:root {
+  --primary: #e8c08e;
+  --secondary: #bf917d;
+  --accent: #4ea58e;
+  --dark: #1f1f1f;
+  --darker: #311c18;
+  --light: #ffffff;
+  --gray: #7a7a7a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #f4f6f9 0%, #e8f5e9 100%);
+}
+
+.auth-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.auth-left {
+    background: palegoldenrod;
+    color: Black;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+
+.auth-left h1 {
+    font-size: 50px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.auth-left p {
+    font-size: 20px;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+.auth-right {
+    padding: 40px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.account-card {
+    width: 100%;
+    max-width: 380px;
+}
+
+.account-card h2 {
+    font-size: clamp(22px, 4vw, 28px);
+    /*color: var(--dark);*/
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.subtitle {
+    text-align: center;
+    /*color: var(--gray);*/
+    font-size: 15px;
+    margin-bottom: 28px;
+}
+
+.account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.account-option {
+    display: block;
+    cursor: pointer;
+}
+
+.account-option input {
+    display: none;
+}
+
+.option-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 20px 16px;
+    /*border: 2px solid var(--border);*/
+    border-radius: 14px;
+    background: #fafafa;
+    transition: 0.3s ease;
+}
+
+.option-box i {
+    font-size: 28px;
+    /*color: var(--primary);*/
+}
+
+.option-box strong {
+    font-size: 18px;
+    /*color: var(--dark);*/
+}
+
+.option-box small {
+    font-size: 13px;
+    /*color: var(--gray);*/
+}
+
+.account-option input:checked + .option-box {
+    /*border-color: var(--primary);*/
+    background: palegoldenrod;
+    /*box-shadow: 0 0 0 3px rgba(27, 189, 54, 0.15);*/
+}
+.account-option,
+.account-option * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+
+.account-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+
+@media (max-width: 768px) {
+
+    .auth-page {
+        padding: 12px;
+    }
+
+    .auth-wrapper {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        border-radius: 14px;
+    }
+
+    .auth-left {
+        padding: 24px 16px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .auth-right {
+        padding: 24px 16px;
+    }
+
+    .auth-logo {
+        width: 65px;
+        height: 65px;
+    }
+
+    .auth-left h1 {
+        font-size: 22px;
+    }
+
+    .auth-left p {
+        font-size: 14px;
+    }
+
+    .account-card h2 {
+        font-size: 20px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .option-box {
+        padding: 16px 12px;
+    }
+
+    .option-box strong {
+        font-size: 16px;
+    }
+
+    .account-btn {
+        font-size: 15px;
+    }
+}

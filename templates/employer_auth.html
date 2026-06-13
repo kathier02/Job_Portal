@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Auth</title>
+    <link rel="stylesheet" href="{% static 'style/employer.css' %}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="top">
+        <button type="button" class="switch-btn active" id="loginTab" onclick="showLogin()">Login</button>
+        <button type="button" class="switch-btn" id="signupTab" onclick="showSignup()">Sign Up</button>
+    </div>
+
+    <!-- Login Form -->
+    <div id="login-form" class="form-box active">
+        <h2>Employer Login</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="login">
+
+            <input type="text" name="username" placeholder="Company Name" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signup-form" class="form-box">
+        <h2>Employer Signup</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="signup">
+
+            <input type="text" name="username" placeholder="Company Name" required>
+            <input type="email" name="email" placeholder="Company Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <p class="jobseeker-link">
+        <a href="{% url 'jobseeker_auth' %}">Job Seeker?</a>
+    </p>
+
+</div>
+
+<script>
+function showLogin() {
+    document.getElementById("login-form").classList.add("active");
+    document.getElementById("signup-form").classList.remove("active");
+    document.getElementById("loginTab").classList.add("active");
+    document.getElementById("signupTab").classList.remove("active");
+}
+
+function showSignup() {
+    document.getElementById("signup-form").classList.add("active");
+    document.getElementById("login-form").classList.remove("active");
+    document.getElementById("signupTab").classList.add("active");
+    document.getElementById("loginTab").classList.remove("active");
+}
+</script>
+
+</body>
+</html>

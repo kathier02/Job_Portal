@@ -1,0 +1,97 @@
+.appply{
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.left-side{
+    flex: 2;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.left-side img{
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.left-side h4{
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.left-side p{
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.right-side{
+    flex: 1;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 20px;
+}
+
+.right-side h2{
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.right-side form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.right-side input{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+.right-side input:focus{
+    border-color: #0d6efd;
+}
+
+.right-side button{
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.right-side button:hover{
+    opacity: 0.9;
+}
+.right-side h2{
+    font-weight: bolder;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.right-side input:focus,
+.right-side button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #666 !important;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .appply{
+        display: block;
+    }
+}

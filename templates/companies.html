@@ -1,0 +1,79 @@
+{% extends 'dummy.html' %}
+{% load static %}
+
+{% block title %}
+Companies
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/style4.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="search">
+    <p>Job Portal</p>
+    <h1>Find Your Next Career Move</h1>
+    <h2>Explore exciting full-time opportunities at leading companies across India.</h2>
+    <div class="search-container mb-4">
+    <input
+        type="text"
+        id="companySearch"
+        class="form-control"
+        placeholder="Search companies..."
+    >
+</div>
+</section>
+<div class="company-grid">
+    {% for company in companies %}
+    <div class="company-card"
+         data-company="{{ company.company_name|lower }}">
+
+        <img src="{{ company.company_logo.url }}"
+             alt="{{ company.company_name }}"
+             class="company-logo"
+             onclick="toggleDetails('{{ company.id }}')">
+
+        <div id="details{{ company.id }}"
+             class="company-details"
+             style="display:none;">
+            <h3>{{ company.company_name }}</h3>
+            <p>
+                <strong>Location:</strong>
+                {{ company.company_location }}
+            </p>
+            <p>{{ company.company_description }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<script>
+document.getElementById('companySearch').addEventListener('keyup', function() {
+    const search = this.value.toLowerCase();
+    const cards = document.querySelectorAll('.company-card');
+
+    cards.forEach(card => {
+        const companyName = card.dataset.company;
+
+        if (companyName.includes(search)) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
+</script>
+
+<script>
+function toggleDetails(id) {
+    const details = document.getElementById("details" + id);
+
+    if (details.style.display === "block") {
+        details.style.display = "none";
+    } else {
+        details.style.display = "block";
+    }
+}
+</script>
+
+{% endblock %}

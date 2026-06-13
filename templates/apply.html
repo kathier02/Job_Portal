@@ -1,0 +1,64 @@
+{% extends 'dummy.html' %}
+{% load static %}
+{% block title %}
+Apply
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/style5.css' %}">
+{% endblock %}
+{% block content %}
+<div class="appply">
+    <div class="left-side">
+
+    <img src="{{ job.company.company_logo.url }}"
+         alt="{{ job.company.company_name }}"
+         width="120">
+
+<!--    <h1>{{ job.job_title }}</h1>-->
+
+<!--    <h2>{{ job.company.company_name }}</h2>-->
+
+<!--    <p>-->
+<!--        <strong>Location:</strong>-->
+<!--        {{ job.location }}-->
+<!--    </p>-->
+
+<!--    <p>-->
+<!--        <strong>Salary:</strong>-->
+<!--        {{ job.salary }}-->
+<!--    </p>-->
+
+        <h4>Job Description</h4>
+    <p>{{ job.job_description | linebreaks }}</p>
+
+</div>
+<div class="right-side">
+
+    <h2>Apply Now</h2>
+
+    {% if submitted %}
+    <div class="alert alert-success">
+        Your application has been submitted successfully!
+        {% if email_sent %}
+        A confirmation email was sent to your Gmail inbox.
+        {% else %}
+        Application saved, but the confirmation email could not be sent.
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <input type="text" name="name" placeholder="Full Name">
+    <input type="email" name="email" placeholder="Email">
+    <input type="text" name="phone" placeholder="Phone">
+    <input type="file" name="resume">
+    <button type="submit">
+        Submit
+    </button>
+    </form>
+
+</div>
+</div>
+{% endblock %}

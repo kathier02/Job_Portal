@@ -1,0 +1,106 @@
+{% extends 'dummy.html' %}
+{% load static %}
+{% block title %}
+Index
+{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/style1.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+{% endblock %}
+{% block content %}
+<div class="cont">
+    <h1>Build Your Dream Career <br> With Us</h1>
+    <p>From industry-standard training to professional mock interviews and job opportunities - we're your complete career acceleration platform.</p>
+    <div class="butt">
+        <button class="butt1">Get Started</button>
+        <button class="butt2">Learn More</button>
+    </div>
+</div>
+<div class="cont1">
+    <h1>Your <span>Career Path</span> to Success</h1>
+    <p>Follow our proven roadmap to accelerate your career growth and unlock new opportunities</p>
+</div>
+<div class="cont3">
+
+    <div class="onee">
+        <div class="content" style="text-align: right">
+            <h1>Skill Development</h1>
+            <p>Learn industry-relevant skills through expert-led courses</p>
+        </div>
+        <i class="bi bi-mortarboard"></i>
+    </div>
+
+    <div class="onee">
+        <i class="bi bi-bullseye"></i>
+        <div class="content">
+            <h1>Mock Interviews</h1>
+            <p>Practice with real interviewers and get detailed feedback</p>
+        </div>
+    </div>
+
+    <div class="onee">
+        <div class="content"  style="text-align: right">
+            <h1>Certification</h1>
+            <p>Earn recognized certifications to boost your resume</p>
+        </div>
+        <i class="bi bi-award"></i>
+    </div>
+
+    <div class="onee">
+        <i class="bi bi-people"></i>
+        <div class="content">
+            <h1>Networking</h1>
+            <p>Connect with professionals and expand your network</p>
+        </div>
+    </div>
+
+</div>
+<div class="cont4">
+    <h1>What Our Users Say</h1>
+    <p>Real success stories from professionals who accelerated their careers with our platform</p>
+    <div class="max-w-4xl mx-auto relative">
+
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'images/bg.jpg' %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption ">
+            <p>"HireHub completely transformed my job search process. From interview preparation to skill enhancement, everything was top-notch."</p>
+            <h3>Kathier</h3>
+            <h4>Software Engineer</h4>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/bg.jpg' %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption ">
+            <p>"The courses are well-structured and practical. I've been able to apply everything I learned directly to my daily work challenges."</p>
+            <h3>Dhanush</h3>
+            <h4>Data Aanlyst</h4>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/bg.jpg' %}" class="d-block w-100" alt="...">
+        <div class="carousel-caption ">
+            <p>"The mock interviews gave me the confidence I needed. I received an offer from my dream company after just two months on the platform!"</p>
+            <h3>Vijay</h3>
+            <h4>Product Manager</h4>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div>
+<div class="cont5">
+    <h1>Ready to <span>Accelerate</span> Your Career?</h1>
+    <h5>Join thousands of professionals who have transformed their careers with us. Start your journey today.</h5>
+    <button>Explore Courses</button>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+.cont{
+    text-align: center;
+    padding: 140px;
+}
+.cont h1{
+    font-size: 80px;
+    font-weight: bolder;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.cont p{
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 20px;
+}
+.icons{
+    font-size: 50px;
+}
+i{
+    margin-right: 30px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* =========================
+   CONTACT PAGE MOBILE
+   ========================= */
+
+@media (max-width: 768px) {
+
+  .cont {
+    padding: 97px 20px;
+    text-align: center;
+  }
+
+  .cont h1 {
+    font-size: 28px;
+  }
+
+  .cont p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .icons i {
+    font-size: 26px;
+  }
+
+  .cont p a {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 15px;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .cont h1 {
+    font-size: 24px;
+  }
+
+  .cont p {
+    font-size: 14px;
+  }
+
+  .icons i {
+    font-size: 22px;
+  }
+}

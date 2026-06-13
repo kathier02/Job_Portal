@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth | HireHub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style/style9.css' %}?v=3">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+</head>
+
+<body>
+
+<section class="auth-page">
+    <div class="auth-wrapper">
+
+        <div class="auth-left">
+<!--            <img src="{% static 'images/logo.png' %}" alt="Logo" class="auth-logo">-->
+            <h1>Welcome to HireHub</h1>
+            <p>Find jobs, apply online, and grow your career with our assistance.</p>
+        </div>
+
+        <div class="auth-right">
+            <div class="account-card">
+                <h2>What kind of account do you need?</h2>
+                <p class="subtitle">Choose an option to continue</p>
+
+                <form method="POST" class="account-form">
+                    {% csrf_token %}
+
+                    <label class="account-option">
+                        <input type="radio" name="account_type" value="jobseeker" required>
+                        <span class="option-box">
+                            <i class="bi bi-person-badge"></i>
+                            <strong>Job Seeker</strong>
+                            <small>Find jobs and apply online</small>
+                        </span>
+                    </label>
+
+                    <label class="account-option">
+                        <input type="radio" name="account_type" value="employer" required>
+                        <span class="option-box">
+                            <i class="bi bi-building"></i>
+                            <strong>Employer</strong>
+                            <small>Post jobs and hire talent</small>
+                        </span>
+                    </label>
+
+                    <button type="submit" class="account-btn">Continue</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+</body>
+</html>

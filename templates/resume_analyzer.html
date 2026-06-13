@@ -1,0 +1,108 @@
+{% extends 'dummy.html' %}
+{% load static %}
+
+{% block title %}
+Resume Analyzer
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/style6.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <section class="upper">
+        <form method="POST" enctype="multipart/form-data" class="mb-4">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Upload Resume (PDF)</label>
+            <input type="file" name="resume" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Job Description</label>
+            <textarea
+                name="job_description"
+                class="form-control"
+                rows="8"
+                required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Analyze Resume
+        </button>
+    </form>
+    </section>
+
+    {% if resume_url %}
+    <div class="row miss">
+
+        <!-- Resume Preview -->
+        <div class="col-md-8">
+            <h4>Resume Preview</h4>
+
+            <div id="pdf-container"></div>
+        </div>
+
+        <!-- Missing Skills -->
+        <div class="col-md-4">
+            <h4>Missing Skills</h4>
+            <div class="card p-3">
+                {% if missing_skills %}
+                    {% for skill in missing_skills %}
+                        <span>
+                            {{ skill }}
+                        </span>
+                    {% endfor %}
+                {% else %}
+                    <p>No missing skills found.</p>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+    {% endif %}
+
+</div>
+
+{% if resume_url %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<script>
+const url = "{{ resume_url }}";
+
+pdfjsLib.getDocument(url).promise.then(function(pdf) {
+
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+
+        pdf.getPage(pageNum).then(function(page) {
+
+            const viewport = page.getViewport({ scale: 1.2 });
+
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            document
+                .getElementById("pdf-container")
+                .appendChild(canvas);
+
+            page.render({
+                canvasContext: ctx,
+                viewport: viewport
+            });
+
+        });
+
+    }
+
+});
+</script>
+{% endif %}
+
+{% endblock %}
