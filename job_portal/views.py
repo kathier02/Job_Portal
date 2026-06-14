@@ -212,25 +212,27 @@ def resume_analyzer(request):
     missing_skills = request.session.pop("missing_skills", [])
 
     if request.method == "POST":
+        try:
+            resume = request.FILES.get("resume")
+            job_description = request.POST.get("job_description", "")
 
-        resume = request.FILES.get("resume")
-        job_description = request.POST.get("job_description", "")
+            if resume and job_description:
 
-        if resume:
+                resume_file = resume
 
-            resume_file = resume
-            resume_url = resume.url
+                resume_text = extract_text_from_pdf(resume_file)
+                job_text = clean_text(job_description)
 
-            resume_text = extract_text_from_pdf(resume_file)
-            job_text = clean_text(job_description)
+                missing_skills = find_missing_skills(
+                    resume_text,
+                    job_text
+                )
 
-            missing_skills = find_missing_skills(
-                clean_text(resume_text),
-                job_text
-            )
+                request.session["resume_url"] = resume_url
+                request.session["missing_skills"] = missing_skills
 
-            request.session["resume_url"] = resume_url
-            request.session["missing_skills"] = missing_skills
+        except Exception as e:
+            print("ERROR IN RESUME ANALYZER:", str(e))
 
         return redirect("resume_analyzer")
 
