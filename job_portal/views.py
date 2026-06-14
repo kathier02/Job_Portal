@@ -217,11 +217,9 @@ def resume_analyzer(request):
         job_description = request.POST.get("job_description", "")
 
         if resume:
-            fs = FileSystemStorage()
-            filename = fs.save(resume.name, resume)
 
-            resume_url = fs.url(filename)
-            resume_file = fs.open(filename)
+            resume_file = resume
+            resume_url = resume.url
 
             resume_text = extract_text_from_pdf(resume_file)
             job_text = clean_text(job_description)
@@ -240,7 +238,6 @@ def resume_analyzer(request):
         "resume_url": resume_url,
         "missing_skills": missing_skills,
     })
-
 
 # ---------------- EMPLOYER PAGES ----------------
 @login_required(login_url='/auth/')
