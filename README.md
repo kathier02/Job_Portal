@@ -1,50 +1,63 @@
-**JOB PORTAL (DJANGO)**
+## Job Portal – Django Web Application
 
-A full-stack Job Portal Web Application built using Django that connects Job Seekers and Employers.
-Employers can post jobs, and candidates can apply by uploading resumes.
-The system includes authentication, profile management, and application tracking.
+A full-stack **Job Portal Web Application** built with **Django** that connects **Job Seekers** and **Employers** through a streamlined hiring platform.
 
-**FEATURES**
+Employers can create and manage job listings, while candidates can search for opportunities and apply by uploading their resumes. The platform includes secure authentication, profile management, application tracking, and resume handling features.
 
-USER AUTHENTICATION
+## Key Features
 
-Login
-Register
-Logout
+### Authentication & User Management
 
-**ROLES**
+* Secure user registration and login system
+* Role-based access for Job Seekers and Employers
+* User logout functionality
+* Profile management for registered users
 
-Job Seeker
-Employer
+### Employer Features
 
-**EMPLOYER DASHBOARD**
+* Create and publish job postings
+* Edit existing job listings
+* Remove inactive job listings
+* Manage jobs through a dedicated dashboard
+* Review candidate applications
 
-Post Jobs
-Manage Job Listings
+### Job Seeker Features
 
-**JOB SEEKER FEATURES**
+* Browse available job opportunities
+* View detailed job descriptions
+* Apply directly for jobs
+* Upload resumes during applications
 
-Browse Jobs
-Apply with Resume Upload
+### Application Management
 
-**SYSTEM FEATURES**
+* Track submitted applications
+* Maintain application records
+* Resume storage and retrieval
 
-Application Tracking System
-Resume Upload & Storage
-Skill Extraction (if implemented)
+### Resume Processing
 
-**ADMIN PANEL**
+* Resume upload support
+* Resume storage management
+* Skill extraction and resume analysis
 
-Django Admin Dashboard
+### Admin Panel
 
-**TECH STACK**
+* Django Admin Dashboard
+* Manage users and job postings
+* Monitor applications and platform activity
 
-Backend: Django (Python)
-Frontend: HTML, CSS, JavaScript
-Database: MySQL / SQLite
-Authentication: Django Auth System
-File Handling: Django FileStorage
+## Tech Stack
 
-**Live Demo / Deployment**
+| Technology     | Description                  |
+| -------------- | ---------------------------- |
+| Backend        | Django (Python)              |
+| Frontend       | HTML, CSS, JavaScript        |
+| Database       | MySQL / SQLite               |
+| Authentication | Django Authentication System |
+| File Storage   | Django File Storage          |
+| Deployment     | Render                       |
+
+## Live Demo
+
+**Deployment Link:**
 https://job-portal-4798.onrender.com
- 
