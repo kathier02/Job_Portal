@@ -1,5 +1,6 @@
 import re
 import PyPDF2
+import io
 
 SKILLS = [
     "python", "java", "c++", "machine learning", "deep learning",
