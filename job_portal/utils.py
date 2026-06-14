@@ -9,15 +9,23 @@ SKILLS = [
 ]
 
 
+
 def extract_text_from_pdf(pdf_file):
 
     text = ""
 
-    pdf_stream = io.BytesIO(pdf_file.read())
-    reader = PyPDF2.PdfReader(pdf_stream)
+    try:
+        pdf_stream = io.BytesIO(pdf_file.read())
+        reader = PyPDF2.PdfReader(pdf_stream)
 
-    for page in reader.pages:
-        text += page.extract_text() or ""
+        for page in reader.pages:
+            page_text = page.extract_text()
+            if page_text:
+                text += page_text
+
+    except Exception as e:
+        print("PDF ERROR:", e)
+        return ""
 
     return text.lower()
 
