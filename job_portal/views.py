@@ -220,7 +220,7 @@ def resume_analyzer(request):
 
             resume_file = resume
 
-            resume_text = extract_text_from_pdf(resume_file)
+            resume_text = extract_text_from_pdf(resume)
             job_text = clean_text(job_description)
 
             missing_skills = find_missing_skills(
@@ -228,7 +228,7 @@ def resume_analyzer(request):
                 job_text
             )
 
-            request.session["resume_url"] = resume.url
+            request.session["resume_url"] = resume.name
             request.session["missing_skills"] = missing_skills
 
         return redirect("resume_analyzer")
