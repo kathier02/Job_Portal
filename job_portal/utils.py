@@ -10,9 +10,11 @@ SKILLS = [
 
 
 def extract_text_from_pdf(pdf_file):
+
     text = ""
 
-    reader = PyPDF2.PdfReader(pdf_file)
+    pdf_stream = io.BytesIO(pdf_file.read())
+    reader = PyPDF2.PdfReader(pdf_stream)
 
     for page in reader.pages:
         text += page.extract_text() or ""
