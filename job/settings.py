@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'job_portal'.
+    'job_portal',
     'cloudinary',
     'cloudinary_storage',
 ]
