@@ -77,12 +77,8 @@ WSGI_APPLICATION = 'job.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hirehub_db',
-        'USER': 'root',
-        'PASSWORD': 'Kathier@02',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
