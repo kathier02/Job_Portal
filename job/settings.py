@@ -41,18 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'job_portal'
 ]
-INSTALLED_APPS += [
-    'cloudinary',
-    'cloudinary_storage',
-]
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
