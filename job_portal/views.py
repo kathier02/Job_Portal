@@ -208,31 +208,28 @@ def contact(request):
 @login_required(login_url='/auth/')
 def resume_analyzer(request):
 
-    resume_url = request.session.pop("resume_url", None)
-    missing_skills = request.session.pop("missing_skills", [])
+    resume_url = request.session.get("resume_url")
+    missing_skills = request.session.get("missing_skills", [])
 
     if request.method == "POST":
-        try:
-            resume = request.FILES.get("resume")
-            job_description = request.POST.get("job_description", "")
 
-            if resume and job_description:
+        resume = request.FILES.get("resume")
+        job_description = request.POST.get("job_description", "")
 
-                resume_file = resume
+        if resume and job_description:
 
-                resume_text = extract_text_from_pdf(resume_file)
-                job_text = clean_text(job_description)
+            resume_file = resume
 
-                missing_skills = find_missing_skills(
-                    resume_text,
-                    job_text
-                )
+            resume_text = extract_text_from_pdf(resume_file)
+            job_text = clean_text(job_description)
 
-                request.session["resume_url"] = resume_url
-                request.session["missing_skills"] = missing_skills
+            missing_skills = find_missing_skills(
+                resume_text,
+                job_text
+            )
 
-        except Exception as e:
-            print("ERROR IN RESUME ANALYZER:", str(e))
+            request.session["resume_url"] = resume.url
+            request.session["missing_skills"] = missing_skills
 
         return redirect("resume_analyzer")
 
@@ -240,7 +237,7 @@ def resume_analyzer(request):
         "resume_url": resume_url,
         "missing_skills": missing_skills,
     })
-
+    
 # ---------------- EMPLOYER PAGES ----------------
 @login_required(login_url='/auth/')
 def home2(request):
