@@ -1,41 +1,167 @@
-from .models import Job,Company,Application
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
-from .models import UserProfile
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.core.files.storage import FileSystemStorage
 
-# Create your views here
+from .models import Job, Company, Application, UserProfile
+from .utils import extract_text_from_pdf, clean_text, find_missing_skills
+
+
+# ---------------- AUTH SELECTION PAGE ----------------
+def auth(request):
+    if request.method == "POST":
+        account_type = request.POST.get("account_type")
+
+        if account_type == "jobseeker":
+            return redirect('jobseeker_auth')
+        elif account_type == "employer":
+            return redirect('employer_auth')
+
+    return render(request, 'auth.html')
+
+
+# ---------------- JOBSEEKER AUTH ----------------
+def jobseeker_auth(request):
+
+    if request.user.is_authenticated:
+        return redirect('home')
+
+    if request.method == "POST":
+        action = request.POST.get("action")
+
+        # LOGIN
+        if action == "login":
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+
+            user = authenticate(request, username=username, password=password)
+
+            if user:
+                if hasattr(user, "userprofile") and user.userprofile.role == "jobseeker":
+                    login(request, user)
+                    return redirect('home')
+                else:
+                    messages.error(request, "Not a Job Seeker account")
+            else:
+                messages.error(request, "Invalid username or password")
+
+        # SIGNUP
+        elif action == "signup":
+            username = request.POST.get("username")
+            email = request.POST.get("email")
+            password = request.POST.get("password")
+
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "Username already exists")
+            else:
+                user = User.objects.create_user(
+                    username=username,
+                    email=email,
+                    password=password
+                )
+
+                UserProfile.objects.create(user=user, role='jobseeker')
+
+                messages.success(request, "Account created successfully")
+
+    return render(request, "jobseeker_auth.html")
+
+
+# ---------------- EMPLOYER AUTH ----------------
+def employer_auth(request):
+
+    if request.user.is_authenticated:
+        return redirect('home2')
+
+    if request.method == "POST":
+        action = request.POST.get("action")
+
+        # LOGIN
+        if action == "login":
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+
+            user = authenticate(request, username=username, password=password)
+
+            if user:
+                if hasattr(user, "userprofile") and user.userprofile.role == "employer":
+                    login(request, user)
+                    return redirect('home2')
+                else:
+                    messages.error(request, "Not an Employer account")
+            else:
+                messages.error(request, "Invalid username or password")
+
+        # SIGNUP
+        elif action == "signup":
+            username = request.POST.get("username")
+            email = request.POST.get("email")
+            password = request.POST.get("password")
+
+            if User.objects.filter(username=username).exists():
+                messages.error(request, "Username already exists")
+            else:
+                user = User.objects.create_user(
+                    username=username,
+                    email=email,
+                    password=password
+                )
+
+                UserProfile.objects.create(user=user, role='employer')
+
+                messages.success(request, "Employer account created successfully")
+
+    return render(request, "employer_auth.html")
+
+
+# ---------------- COMMON LOGOUT ----------------
+def logout_user(request):
+    logout(request)
+    return redirect('auth')
+
+
+# ---------------- JOBSEEKER PAGES ----------------
+@login_required(login_url='/auth/')
 def index(request):
-    return render(request,'index.html',)
+    return render(request, 'index.html')
 
+
+@login_required(login_url='/auth/')
 def home(request):
-    return render(request,'home.html')
+    return render(request, 'home.html')
 
+
+@login_required(login_url='/auth/')
 def about(request):
-    return render(request,'index.html')
+    return render(request, 'index.html')
 
+
+@login_required(login_url='/auth/')
 def job(request):
     jobs = Job.objects.all()
-    return render(request, 'jobs.html', {
-        'jobs': jobs
-    })
+    return render(request, 'jobs.html', {'jobs': jobs})
 
+
+@login_required(login_url='/auth/')
 def companies(request):
     companies = Company.objects.all()
-    return render(request, 'companies.html', {
-        'companies': companies
-    })
+    return render(request, 'companies.html', {'companies': companies})
 
+
+@login_required(login_url='/auth/')
 def recruiters(request):
-    return render(request,'recruiters.html')
+    return render(request, 'recruiters.html')
 
-# views.py
 
+@login_required(login_url='/auth/')
 def apply_home(request):
     return render(request, 'apply_home.html')
 
+
+@login_required(login_url='/auth/')
 def apply(request, job_id):
     job = get_object_or_404(Job, id=job_id)
 
@@ -52,25 +178,18 @@ def apply(request, job_id):
         )
 
         email_sent = False
-        if email:
-            try:
-                send_mail(
-                    subject=f"Application Submitted - {job.job_title}",
-                    message=(
-                        f"Hi {name},\n\n"
-                        f"Your application for {job.job_title} at {job.company.company_name} "
-                        f"was submitted successfully.\n\n"
-                        f"We will contact you soon.\n\n"
-                        f"Thanks,\nHireHub Team"
-                    ),
-                    from_email=None,
-                    recipient_list=[email],
-                    fail_silently=False,
-                )
-                email_sent = True
-            except Exception as e:
-                print("Email error:", e)
-                email_sent = False
+
+        try:
+            send_mail(
+                subject=f"Application Submitted - {job.job_title}",
+                message=f"Hi {name}, your application was submitted successfully.",
+                from_email=None,
+                recipient_list=[email],
+                fail_silently=False,
+            )
+            email_sent = True
+        except:
+            email_sent = False
 
         return render(request, "apply.html", {
             "job": job,
@@ -78,25 +197,17 @@ def apply(request, job_id):
             "email_sent": email_sent,
         })
 
-    return render(request, "apply.html", {
-        "job": job
-    })
+    return render(request, "apply.html", {"job": job})
 
+
+@login_required(login_url='/auth/')
 def contact(request):
-    return render(request,'contact.html')
+    return render(request, 'contact.html')
 
 
-from django.core.files.storage import FileSystemStorage
-from django.shortcuts import render, redirect
-from .utils import (
-    extract_text_from_pdf,
-    clean_text,
-    find_missing_skills
-)
-
+@login_required(login_url='/auth/')
 def resume_analyzer(request):
 
-    # Show results once after redirect
     resume_url = request.session.pop("resume_url", None)
     missing_skills = request.session.pop("missing_skills", [])
 
@@ -106,237 +217,62 @@ def resume_analyzer(request):
         job_description = request.POST.get("job_description", "")
 
         if resume:
-
             fs = FileSystemStorage()
-
-            filename = fs.save(
-                resume.name,
-                resume
-            )
+            filename = fs.save(resume.name, resume)
 
             resume_url = fs.url(filename)
-
             resume_file = fs.open(filename)
 
-            resume_text = extract_text_from_pdf(
-                resume_file
-            )
-
-            job_text = clean_text(
-                job_description
-            )
+            resume_text = extract_text_from_pdf(resume_file)
+            job_text = clean_text(job_description)
 
             missing_skills = find_missing_skills(
                 clean_text(resume_text),
                 job_text
             )
 
-            # Store temporarily
             request.session["resume_url"] = resume_url
             request.session["missing_skills"] = missing_skills
 
         return redirect("resume_analyzer")
 
-    return render(
-        request,
-        "resume_analyzer.html",
-        {
-            "resume_url": resume_url,
-            "missing_skills": missing_skills,
-        }
-    )
-
-from django.shortcuts import render, redirect
-def auth(request):
-    if request.method == "POST":
-        account_type = request.POST.get("account_type")
-
-        if account_type == "jobseeker":
-            return redirect('index')
-
-        elif account_type == "employer":
-            return redirect('home2')
-
-    return render(request, 'auth.html')
+    return render(request, "resume_analyzer.html", {
+        "resume_url": resume_url,
+        "missing_skills": missing_skills,
+    })
 
 
-from django.shortcuts import render, redirect
-from .models import Job, Company
+# ---------------- EMPLOYER PAGES ----------------
+@login_required(login_url='/auth/')
+def home2(request):
+    return render(request, 'home2.html')
 
+
+@login_required(login_url='/auth/')
+def contact2(request):
+    return render(request, 'contact2.html')
+
+
+@login_required(login_url='/auth/')
 def add_job(request):
 
     if request.method == "POST":
-
         Job.objects.create(
             job_title=request.POST.get("job_title"),
             job_description=request.POST.get("job_description"),
             salary=request.POST.get("salary"),
             location=request.POST.get("location"),
-            company=Company.objects.get(
-                id=request.POST.get("company")
-            )
+            company=Company.objects.get(id=request.POST.get("company"))
         )
-
         return redirect("add_job")
 
     companies = Company.objects.all()
-
-    return render(request, "add_job.html", {
-        "companies": companies
-    })
+    return render(request, "add_job.html", {"companies": companies})
 
 
-
-
-
-
-def home2(request):
-    return render(request,'home2.html')
-
-def contact2(request):
-    return render(request,'contact2.html')
-
+@login_required(login_url='/auth/')
 def applications(request):
-    applications = Application.objects.select_related(
-        'job',
-        'job__company'
-    )
-
-    return render(
-        request,
-        'applications.html',
-        {
-            'applications': applications
-        }
-    )
-
-
-from django.shortcuts import render, redirect
-
-def auth(request):
-    if request.method == "POST":
-        account_type = request.POST.get("account_type")
-
-        if account_type == "jobseeker":
-            return redirect('jobseeker_auth')
-
-        elif account_type == "employer":
-            return redirect('employer_auth')
-
-    return render(request, 'auth.html')
-
-
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from django.shortcuts import render, redirect
-
-
-def jobseeker_auth(request):
-
-    if request.method == "POST":
-
-        action = request.POST.get("action")
-
-        # LOGIN
-        if action == "login":
-            username = request.POST.get("username")
-            password = request.POST.get("password")
-
-            user = authenticate(
-                request,
-                username=username,
-                password=password
-            )
-
-            if user:
-                if user.userprofile.role == 'jobseeker':
-                    login(request, user)
-                    return redirect('home')
-                else:
-                    messages.error(request, "Not a Job Seeker account")
-
-            messages.error(request, "Invalid username or password")
-
-        # SIGNUP
-        elif action == "signup":
-            username = request.POST.get("username")
-            email = request.POST.get("email")
-            password = request.POST.get("password")
-
-            if User.objects.filter(username=username).exists():
-                messages.error(request, "Username already exists")
-            else:
-                user = User.objects.create_user(
-                    username=username,
-                    email=email,
-                    password=password
-                )
-
-                UserProfile.objects.create(
-                    user=user,
-                    role='jobseeker'
-                )
-
-                messages.success(request, "Account created successfully")
-
-    return render(request, "jobseeker_auth.html")
-
-
-def employer_auth(request):
-
-    if request.method == "POST":
-
-        action = request.POST.get("action")
-
-        # LOGIN
-        if action == "login":
-            username = request.POST.get("username")
-            password = request.POST.get("password")
-
-            user = authenticate(
-                request,
-                username=username,
-                password=password
-            )
-
-            if user:
-                if user.userprofile.role == 'employer':
-                    login(request, user)
-                    return redirect('home2')
-                else:
-                    messages.error(request, "Not an Employer account")
-
-            messages.error(request, "Invalid username or password")
-
-        # SIGNUP
-        elif action == "signup":
-            username = request.POST.get("username")
-            email = request.POST.get("email")
-            password = request.POST.get("password")
-
-            if User.objects.filter(username=username).exists():
-                messages.error(request, "Username already exists")
-            else:
-                user = User.objects.create_user(
-                    username=username,
-                    email=email,
-                    password=password
-                )
-
-                UserProfile.objects.create(
-                    user=user,
-                    role='employer'
-                )
-
-                messages.success(request, "Employer account created successfully")
-
-    return render(request, "employer_auth.html")
-
-
-from django.contrib.auth import logout
-from django.shortcuts import redirect
-
-def logout_user(request):
-    logout(request)
-    return redirect('auth')
+    applications = Application.objects.select_related('job', 'job__company')
+    return render(request, 'applications.html', {
+        'applications': applications
+    })
