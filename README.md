@@ -44,3 +44,6 @@ Frontend: HTML, CSS, JavaScript
 Database: MySQL / SQLite
 Authentication: Django Auth System
 File Handling: Django FileStorage
+
+**Live Demo / Deployment**
+https://job-portal-4798.onrender.com
