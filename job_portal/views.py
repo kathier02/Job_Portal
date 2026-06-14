@@ -217,9 +217,9 @@ def resume_analyzer(request):
             resume = request.FILES.get("resume")
             job_description = request.POST.get("job_description", "")
 
-            print("📄 FILE RECEIVED:", resume)
-            print("📦 FILE SIZE:", resume.size if resume else "NO FILE")
-            print("📝 JOB DESC LENGTH:", len(job_description))
+            print(" FILE RECEIVED:", resume)
+            print(" FILE SIZE:", resume.size if resume else "NO FILE")
+            print(" JOB DESC LENGTH:", len(job_description))
 
             if resume and job_description:
 
